@@ -1,0 +1,8 @@
+Instalar as extensões no VSCode:
+-Live Server
+-Node.js exec
+-Prettier Code Formater
+
+- vs-code-icons (opcional)
+-Beautiful Dracula (opcional)
+
