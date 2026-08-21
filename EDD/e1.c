@@ -1,16 +1,18 @@
 #include<stdio.h>
 
 int main(){
-	int i=1,v;
+	int i=1, v=0;
 	
-	while(i<=500){
+	while(i<=500) {
+		
 		if(i%3 == 0){
 			if(i%2 == 1) {
-				printf("%d \n",i);
-				v = i+i;
-				printf ("%d ",i);
+				v=v+i;
+			
+			
 			}
-			i++;
 		}
-	}
+		i++;
+	
+	}printf("O resultado e %d \n",v);
 }
