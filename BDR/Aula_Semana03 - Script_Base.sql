@@ -183,3 +183,31 @@ select id_categoria, round(avg(preco),2) as "Preço Médio" from produto group b
 select produto.id_categoria as "ID",categoria.nome as "Categoria", round(avg(preco),2) as "Preço Médio" from produto
 inner join categoria on categoria.id_categoria = produto.id_categoria
 group by produto.id_categoria order by "ID";
+
+/*Having - Quais categorias possuem preço médio maior que R$500,00*/
+select id_categoria, round (avg(preco),2) as "Preço Médio" from produto
+group by id_categoria having avg(preco) > 500;
+
+/*Inner Join*/
+select p.nome as "Produto", c.nome as "Categoria", p.preco as "Valor" from produto p 
+join categoria c on p.id_categoria = c.id_categoria;
+#ou assim mais reduzido a query
+select p.nome as "Produto", c.nome as "Categoria", p.preco as "Valor" from produto p
+join categoria c using (id_categoria);
+
+/*Group by + inner join - Quantos produtos existem em cada categoria*/
+select c.nome as "Categoria", count(p.id_produto) as "Quantidade" from categoria c
+join produto p on c.id_categoria = p.id_categoria group by c.nome;
+
+/*Left join*/
+select c.nome as "Categoria", p.nome as "Produto"
+from categoria c left join produto p
+on c.id_categoria = p.id_categoria;
+
+/*Quais clientes estçao cadastrados, mas nunca compraram*/
+select c.nome as "Cliente" from cliente c left join pedido p
+on c.id_cliente = p.id_cliente where p.id_pedido is NULL;
+
+/*Quem comprou e em qual pedido comprou?*/
+select c.nome as "Cliente", p.id_pedido, p.data_pedido from  cliente c 
+ join pedido p on c.id_cliente = p.id_cliente order by c.nome;
