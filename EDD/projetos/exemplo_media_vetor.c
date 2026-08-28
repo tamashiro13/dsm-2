@@ -15,5 +15,5 @@ int main () {
 	}
 	//calcula a media
 	media = soma / 5;
-	printf ("Media: %f",media)
-;}
+	printf ("Media: %f",media);
+	}
