@@ -49,7 +49,7 @@ public class Produto {
     }
     public void cadastrarProduto(int quantidade){
         setNomeProduto (JOptionPane.showInputDialog("Digite o nome do produto: "));
-        setQuantidade (setQuantidade);
+        setQuantidade(quantidade);
         setValor (Double.parseDouble(JOptionPane.showInputDialog("Digite o valor do produto: ")));
     }
     public double calcularTotal(){
