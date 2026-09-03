@@ -211,3 +211,107 @@ on c.id_cliente = p.id_cliente where p.id_pedido is NULL;
 /*Quem comprou e em qual pedido comprou?*/
 select c.nome as "Cliente", p.id_pedido, p.data_pedido from  cliente c 
  join pedido p on c.id_cliente = p.id_cliente order by c.nome;
+ 
+ #Subconsulta
+ select nome, preco from produto where preco > (select avg(preco) from produto);
+ 
+ /*Messe exemplo, a subconsulta calcula o preço médio e a consulta externa retorna 
+ os produtos acima dessa média.*/
+ 
+ #Subconsultas com listas e existência
+ /*Quando a subconsulta retorna vários valores, usam-se os operadores 
+ IN, EXISTS, ANY e ALL. O IN verifica se um valor pertence ao conjunto retornado.
+ O EXISTS testa apenas se a subconsulta produz alguma linha, sendo bastante eficiente
+ para verificar existência. O exemplo busca clientes que fizeram ao menos um pedido*/
+ 
+ select nome from cliente c where exists
+ (select 1 from pedido p where p.id_cliente = c.id_cliente);
+ 
+ #Subconsulta no from e no select
+ /*A subconsulta também pode aparecer na claúsla FROM,
+ funcionando como uma tabela temporária, ou na lista de colunas do SELECT,
+ retornando um valor único por linha. O exemplo a seguir mostra cada
+ categoria ao lado da quantidade de produtos, calculada por uma subconsulta no SELECT: */
+ 
+ select c.nome,(select count(*) from produto p where p.id_categoria = c.id_categoria) as
+ "Quantidade de produtos" from categoria c;
+ 
+ #Organizando com CTEs e combinando com Union
+ /*Consultas longas tornam-se difíceis de ler quando muitas subconsultas se aninham.
+ A Common Table Expression (CTE), introduzida pela claúsla WITH, dá nome a um resultado 
+ intermediário e melhora a clareza. Ela é especialmente útil quando o mesmo subresultado 
+ é referenciado mais de uma vez.*/
+ 
+ with faturamento_cliente as (
+ select p.id_cliente, sum(ip.quantidade * ip.preco_unitario) as "Total" from pedido p
+ join item_pedido ip on p.id_pedido = ip.id_pedido
+ group by p.id_cliente
+ )
+ select c.nome, f.total from faturamento_cliente f
+ join cliente c on c.id_cliente = f.id_cliente
+ where f.total > 500;
+ 
+ #Funções Internas
+ /*Os SGBDs oferecem um conjunto amplo de funções internas que
+ processam valores durante a consulta. As funções de texto manipulam 
+ cadeias de caracteres. CONCAT junta strings, UPPER e LOWER alteram a caixa, 
+ SUBSTRING extrai um trecho, LENGTH mede o comprimento e TRIM remove espaços 
+ nas extremidades. */
+ 
+ select concat(nome, '(', cidade,')')as "Idenficação",
+	upper (cidade) as "Email em Maiúsculo" from cliente;
+
+#Função interna de data
+/*As funções de data permitem extrair e calcular informações temporais
+NOW retorna o instante atual, DATEDIFF calcular a diferença entre dataas e funções de formatação ajustam a exibição.
+O exemplo apura quantos dias cada cliente esta cadastrado*/
+ 
+ select nome, datediff(current_date,data_cadastro) as "Dias de cadastro" from cliente;
+
+# Funções numéricas e condicionais
+/*As funções numéricas arredondam e ajustam valores:
+ROUND arredonda, FLOOR e CEIL aproximam para baixo e para cima.
+Já as funções condicionais decidem o valor de saída conforme uma regra.
+O comando CASE funciona como uma estrutura de decisão dentro da consulta,
+e COALESCE substitui valores nulos por uma alternativa. */
+
+select nome, preco,
+	case
+		when preco >= 500 then "Premium"
+        when preco >= 100 then "Intermediário"
+        else "Econômico"
+	end as "faixa",
+    coalesce(id_categoria, 0) as "Categoria Segura"
+from produto;
+
+#Visões - O que são visões?
+/*Uma visão, ou view, é uma consulta armazenada que se comporta como uma tabela
+virtual. Ela não guarda dados próprios, mas sim a definição de um SELECT
+que é executado sempre que a visão é consultada.
+Silberschatz e colaboradores destacam que as visões cumprem 
+dois papéis centrais: simplificar consultas complexas e controlar
+o que cada usuário pode enxergar. */
+
+create view vw_produtos_categoria as
+select p.id_produto, p.nome as "produto",
+p.preco, c.nome as "categoria" from produto p 
+join categoria c on p.id_categoria = c.id_categoria;
+
+/*Depois de criada, a visão é consultada como se fosse uma tabela comum,
+o que dispensa repetir a junção a cada uso: */
+
+SELECT * FROM vw_produtos_categoria WHERE preco > 200;
+
+#Visões como camada de segurança
+/*Além de simplificar, as visões protegem os dados.
+É possível expor apenas algumas colunas de uma tabela,
+escondendo informações sensíveis. Uma visão que mostra
+clientes sem revelar o e-mail, por exemplo, permite que 
+relatórios sejam gerados sem dar acesso ao dado privado.
+A claúsla WITH CHECK OPTION, por sua vez, impede que atualizações
+feitas através da visão violem a condição que a define. */
+
+create view vw_cliente_publico as
+select id_cliente, nome, cidade from cliente;
+
+select * from vw_cliente_publico;
