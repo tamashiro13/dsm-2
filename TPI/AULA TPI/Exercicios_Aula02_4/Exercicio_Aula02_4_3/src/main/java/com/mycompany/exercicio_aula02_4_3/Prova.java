@@ -42,6 +42,17 @@ public class Prova {
     public void nivelProva(){
         setNome(JOptionPane.showInputDialog("Digite o nome: "));
         setPontos(Double.parseDouble(JOptionPane.showInputDialog("Digite a quantidade de pontos: ")));
-        
+        if (getPontos() <= 100){
+            setNivel("Nível 1");
+        }
+        else if (getPontos() < 200){
+            setNivel("Nível 2");
+        }
+        else if (getPontos() >= 200){
+            setNivel("Nível 3");
+        }
+    }
+    public void listarResultado() {
+        JOptionPane.showMessageDialog(null, "Nome: " +getNome() + "\n" + "Pontos: " + getPontos() + "\n" + "Nível: " + getNivel());
     }
 }

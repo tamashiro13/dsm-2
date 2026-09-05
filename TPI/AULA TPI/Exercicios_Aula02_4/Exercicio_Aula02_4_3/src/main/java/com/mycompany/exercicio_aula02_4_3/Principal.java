@@ -11,6 +11,9 @@ package com.mycompany.exercicio_aula02_4_3;
 public class Principal {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Prova pro = new Prova();
+        
+        pro.nivelProva();
+        pro.listarResultado();
     }
 }

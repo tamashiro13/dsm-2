@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+CALSCALE:GREGORIAN
+PRODID:-//RSVP//EN
+VERSION:2.0
+BEGIN:VEVENT
+UID:b0610271d7214fc388160670cffd14f4@rsvp.withgoogle.com
+DTSTART;TZID="America/Sao_Paulo":20260925T090000
+DTEND;TZID="America/Sao_Paulo":20260925T113000
+SUMMARY:Capacita+: Construa com o Gemini [FATEC - Campus Registro]
+DESCRIPTION:Vem aí o Capacita+: Construa com o Gemini\, o maior evento de treinamento em inteligência artificial do Google Cloud no Brasil! Depois de conquistarmos juntos o recorde do Guinness World Record de maior treinamento híbrido de IA simultâneo em 2025\, o Capacita+ dá um passo adiante e avança em direção à Era Agêntica da inteligência artificial. Você terá a oportunidade única de aprender diretamente com especialistas do Google Cloud e descobrir como o desenvolvimento de agentes inteligentes será essencial para resolver problemas reais em qualquer área de atuação.
+LOCATION:FATEC - Campus Registro\, Avenida Clara Gianotti de Souza, 257, Centro\, Registro - SP\, 11900-000\, BR
+END:VEVENT
+END:VCALENDAR
