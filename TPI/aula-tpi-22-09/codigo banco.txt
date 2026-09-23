@@ -1,0 +1,11 @@
+SELECT * FROM loja_aula.item_pedido;
+
+select pedido.id_pedido as "ID", produto.nome as "Produto", cliente.nome as "Nome Cliente" from item_pedido
+join produto on produto.id_produto = item_pedido.id_produto
+join pedido on pedido.id_pedido =  item_pedido.id_pedido
+join cliente on cliente.id_cliente = pedido.id_cliente;
+
+create index idx_nomeProd on produto(nome);
+
+drop index idx_nomeProd on produto;
+drop index id_categoria on produto;

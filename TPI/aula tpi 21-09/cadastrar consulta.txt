@@ -1,0 +1,18 @@
+    public void cadastrar(){
+        String sql= "Insert into cliente(codigo,nome,telefone,email)values"+
+          "("+ getCodigo()+ ", '" + getNome()+ "', '"+getTelefone()+"', "
+                + "'"+getEmail()+"')";    
+        con.executeSQL(sql);
+        JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso !!!");
+        
+    }
+    
+    public ResultSet consultar(){
+        ResultSet tabela;
+        tabela = null;
+        
+        String sql = "Select * from cliente";
+        tabela = con.RetornarResultset(sql);
+        return tabela;
+        
+    }

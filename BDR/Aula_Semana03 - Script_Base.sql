@@ -466,3 +466,23 @@ delimiter ;
 select * from produto;
 update produto set preco = 10.00 where id_produto=21;
 select * from log_preco;
+
+select * from produto where id_produto = 1;
+
+#Transação (transaction)
+start transaction; #Inicia uma transação (Rodar essa linha primeiro, para começar a transação)
+update produto set estoque = estoque - 2 where id_produto = 1;
+insert into pedido (id_cliente,data_pedido) values (1,'2026-06-06');
+commit; #finaliza a transação 
+rollback; #faz as transações feitas serem canceladas
+
+select * from item_pedido;
+
+select pedido.id_pedido as "ID", produto.nome as "Produto", cliente.nome as "Nome Cliente" from item_pedido
+join produto on produto.id_produto = item_pedido.id_produto
+join pedido on pedido.id_pedido = item_pedido.id_pedido
+join cliente on cliente.id_cliente = pedido.id_cliente;
+
+create index idx_nomePod on produto(nome);
+
+drop index idx_nomeProd on produto;
