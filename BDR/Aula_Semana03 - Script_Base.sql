@@ -486,3 +486,12 @@ join cliente on cliente.id_cliente = pedido.id_cliente;
 create index idx_nomePod on produto(nome);
 
 drop index idx_nomeProd on produto;
+
+create table fornecedor
+(
+id_fornecedor int auto_increment primary key,
+nome varchar (255)
+);
+
+insert into fornecedor (nome) values ("Fonerc A");
+
