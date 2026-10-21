@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Cadastro de Eventos</title>
+    <style>
+        .formulario { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; }
+        .resultado { background: #e7f3fe; padding: 15px; border-radius: 5px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h2>Check-in</h2>
+
+<form th:action="@{/checkin}" method="post">
+    <div class="formulario">
+        <label>Data do Evento:</label>
+        <input type="date" name="data" required placeholder="Insira a data do evento" />
+    </div>
+
+    <div class="formulario">
+        <label>Tipo de Ingresso:</label>
+        <select name="tipo">
+            <option value=""></option>
+            <option value="Pista">Pista</option>
+            <option value="VIP">VIP</option>
+            <option value="Camarote">Camarote</option>
+        </select>
+    </div>
+
+    <div class="formulario">
+        <label>Quantidade de Pessoas:</label>
+        <input type="int" name="quantidade" required placeholder="Insira a quantidade de pessoas">
+    </div>
+    
+    <div class="formulario">
+        <label>Meia Entrada:</label>
+        <select name="meia">
+            <option value=""></option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+    </div>
+
+    <button type="submit">Check-in</button>
+</form>
+
+<div th:if="${sucesso}" class="resultado">
+    <h3>Check-in Realizado com Sucesso</h3>
+    <p><strong>Data do Evento:</strong> <span th:text="${d}"></span></p>
+    <p><strong>Tipo de Ingresso:</strong> <span th:text="${t}"></span></p>
+    <p><strong>Quantidade de Pessoas:</strong> <span th:text="${q}"></span></p>
+    <p><strong>Meia Entrada:</strong> <span th:text="${m}"></span></p>
+</div>
+
+</body>
+</html>
