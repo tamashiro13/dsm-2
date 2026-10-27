@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário Cadastro Reserva Hotel</title>
+    <style>
+        .formulario { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; }
+        .resultado { background: #010101; color: #ffffff; padding: 15px; border-radius: 5px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h2>Reserva</h2>
+
+<form th:action="@{/reservas}" method="post">
+    <div class="formulario">
+        <label>Nome do Hóspede:</label>
+        <input type="text" name="nome" required placeholder="Insira o nome do hóspede" />
+    </div>
+
+    <div class="formulario">
+        <label>Data de Check-in:</label>
+        <input type="date" name="checkin" required placeholder="Insira a data de check-in" />
+    </div>
+
+    <div class="formulario">
+        <label>Data de Check-out:</label>
+        <input type="date" name="checkout" required placeholder="Insira a data de check-out" />
+    </div>
+
+    <div class="formulario">
+        <label>Tipo de Quarto:</label>
+        <select name="tipoQuarto">
+            <option value=""></option>
+            <option value="Standard">Standard</option>
+            <option value="Luxo">Luxo</option>
+            <option value="Suíte">Suíte</option>
+        </select>
+    </div>
+
+    <div class="formulario">
+        <label>Quantidade de Hóspedes:</label>
+        <input type="int" name="quantidadeHospedes" required placeholder="Insira a quantidade de hóspedes" />
+    </div>
+
+    <div class="formulario">
+        <label>Café da Manhã:</label>
+        <select name="cafeManha">
+            <option value=""></option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+    </div>
+
+    <div class="formulario">
+        <label>Estacionamento:</label>
+        <select name="estacionamento">
+            <option value=""></option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+    </div>
+
+    <div class="formulario">
+        <label>Forma de Pagamento:</label>
+        <select name="formaPagamento">
+            <option value=""></option>
+            <option value="Pix">Pix</option>
+            <option value="Cartão">Cartão</option>
+            <option value="Dinheiro">Dinheiro</option>
+        </select>
+    </div>
+
+    <div class="formulario">
+        <label>Valor Diária:</label>
+        <select name="valorDiaria">
+            <option value=""></option>
+            <option value="180">R$180,00</option>
+            <option value="240">R$240,00</option>
+            <option value="440">R$440,00</option>
+        </select>
+    </div>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+<div th:if="${sucesso}" class="resultado">
+    <h3>Reserva do Hotel ShiroX</h3>
+    <p><strong>Nome do Hóspede:</strong> <span th:text="${n}"></span></p>
+    <p><strong>Data de Check-in:</strong> <span th:text="${i}"></span></p>
+    <p><strong>Data de Chek-out:</strong> <span th:text="${o}"></span></p>
+    <p><strong>Tipo de Quarto:</strong> <span th:text="${t}"></span></p>
+    <p><strong>Quantidade de Hóspedes:</strong> <span th:text="${q}"></span></p>
+    <p><strong>Café da Manhã:</strong> <span th:text="${c}"></span></p>
+    <p><strong>Estacionamento:</strong> <span th:text="${e}"></span></p>
+    <p><strong>Forma de Pagamento:</strong> <span th:text="${f}"></span></p>
+    <p><strong>Valor Diária:</strong> <span th:text="${v}"></span></p>
+    <h4>✔ Reserva Realizada com Sucesso!</h4>
+</div>
+
+</body>
+</html>
