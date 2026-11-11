@@ -81,4 +81,14 @@ public class Pessoa {
         setIdade(Integer.parseInt(JOptionPane.showInputDialog("Digite idade: ")));
         setPeso(Double.parseDouble(JOptionPane.showInputDialog("Digite peso: ")));
     }
+    public double calcularAposentadoriaIdade(){
+        int apo;
+        apo = 65 - getIdade();
+        if(apo <= 0){
+            JOptionPane.showMessageDialog(null, "Pode Aposentar!");
+        }else{
+            JOptionPane.showMessageDialog(null,"Nao pode aposentar");
+        }
+        return apo;
+    }
 }
